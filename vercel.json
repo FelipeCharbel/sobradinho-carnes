@@ -1,0 +1,27 @@
+{
+  "buildCommand": "pip install -r requirements.txt",
+  "serverlessFunctionRegion": "gig1",
+  "functions": {
+    "server/main.py": {
+      "runtime": "python@3.12"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/server/main.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/$1"
+    }
+  ]
+}
